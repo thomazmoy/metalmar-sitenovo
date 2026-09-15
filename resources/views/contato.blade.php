@@ -21,25 +21,25 @@
 @section('content')
 
   <!-- Page Header Breadcrumb -->
-  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
-    <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
+  <section class="subpage-hero" style="text-align: center;">
+    <div class="container-custom">
+      <div class="section-badge">
         <i class="ti ti-mail"></i>
         <span>{{ tr('Canais de Atendimento') }}</span>
       </div>
-      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+      <h1 class="subpage-hero-title">
         {{ tr('Fale Conosco') }}
       </h1>
-      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+      <p class="subpage-hero-desc" style="margin: 0 auto;">
         {{ tr('Estamos à disposição para atender sua demanda com agilidade, seriedade e precisão técnica.') }}
       </p>
     </div>
   </section>
 
   <!-- Contact Form & Details Section -->
-  <section style="padding: 5.5rem 0; background-color: var(--slate-50);">
+  <section class="section-py section-bg-slate">
     <div class="container-custom">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: flex-start;">
+      <div class="contact-grid">
         
         <!-- Left: Contact Details Cards -->
         <div>
@@ -57,9 +57,9 @@
           <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;">
             
             @if(!empty($siteconfig->endereco))
-              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
-                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                  <i class="ti ti-map-pin" style="font-size: 1.4rem;"></i>
+              <div class="contact-item" style="padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div class="contact-icon-box">
+                  <i class="ti ti-map-pin"></i>
                 </div>
                 <div>
                   <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">{{ tr('Endereço') }}</h4>
@@ -71,9 +71,9 @@
             @endif
 
             @if(!empty($siteconfig->celular))
-              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
-                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                  <i class="ti ti-device-mobile" style="font-size: 1.4rem;"></i>
+              <div class="contact-item" style="padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div class="contact-icon-box">
+                  <i class="ti ti-device-mobile"></i>
                 </div>
                 <div>
                   <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">{{ tr('Celular / Comercial') }}</h4>
@@ -85,9 +85,9 @@
             @endif
 
             @if(!empty($siteconfig->email))
-              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
-                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                  <i class="ti ti-mail" style="font-size: 1.4rem;"></i>
+              <div class="contact-item" style="padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div class="contact-icon-box">
+                  <i class="ti ti-mail"></i>
                 </div>
                 <div>
                   <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">E-mail</h4>
@@ -107,22 +107,22 @@
             </h4>
             <div style="display: flex; gap: 0.75rem;">
               @if(!empty($siteconfig->facebook))
-                <a href="{{ $siteconfig->facebook }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #1877f2; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <a href="{{ $siteconfig->facebook }}" target="_blank" class="footer-social-link" style="background: #ffffff; border: 1px solid var(--slate-200); color: #1877f2; width: 2.75rem; height: 2.75rem; border-radius: 0.65rem;">
                   <i class="ti ti-brand-facebook"></i>
                 </a>
               @endif
               @if(!empty($siteconfig->instagram))
-                <a href="{{ $siteconfig->instagram }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #e1306c; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <a href="{{ $siteconfig->instagram }}" target="_blank" class="footer-social-link" style="background: #ffffff; border: 1px solid var(--slate-200); color: #e1306c; width: 2.75rem; height: 2.75rem; border-radius: 0.65rem;">
                   <i class="ti ti-brand-instagram"></i>
                 </a>
               @endif
               @if(!empty($siteconfig->whatsapp))
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #25d366; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}" target="_blank" class="footer-social-link" style="background: #ffffff; border: 1px solid var(--slate-200); color: #25d366; width: 2.75rem; height: 2.75rem; border-radius: 0.65rem;">
                   <i class="ti ti-brand-whatsapp"></i>
                 </a>
               @endif
               @if(!empty($siteconfig->linkedin))
-                <a href="{{ $siteconfig->linkedin }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #0a66c2; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <a href="{{ $siteconfig->linkedin }}" target="_blank" class="footer-social-link" style="background: #ffffff; border: 1px solid var(--slate-200); color: #0a66c2; width: 2.75rem; height: 2.75rem; border-radius: 0.65rem;">
                   <i class="ti ti-brand-linkedin"></i>
                 </a>
               @endif
@@ -132,7 +132,7 @@
         </div>
 
         <!-- Right: Modern Contact Form Card -->
-        <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);">
+        <div class="contact-form-card">
           <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--navy-950); margin-bottom: 0.5rem;">
             {{ tr('Envie Sua Mensagem') }}
           </h3>
@@ -212,7 +212,7 @@
 
   <!-- Google Map Embed -->
   @if(!empty($siteconfig->iframemapa))
-    <section style="line-height: 0; filter: grayscale(0.2) contrast(1.1);">
+    <section class="map-container" style="border-radius: 0; height: 420px; border-left: none; border-right: none;">
       {!! $siteconfig->iframemapa !!}
     </section>
   @endif

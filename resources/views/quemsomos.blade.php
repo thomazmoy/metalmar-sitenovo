@@ -21,16 +21,16 @@
 @section('content')
 
   <!-- Page Header Breadcrumb -->
-  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
-    <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
+  <section class="subpage-hero" style="text-align: center;">
+    <div class="container-custom">
+      <div class="section-badge">
         <i class="ti ti-building"></i>
         <span>{{ tr('Nossa Empresa') }}</span>
       </div>
-      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+      <h1 class="subpage-hero-title">
         {{ tr('Quem Somos') }}
       </h1>
-      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+      <p class="subpage-hero-desc" style="margin: 0 auto;">
         {{ tr('Conheça nossa trajetória, valores e o compromisso com a excelência em engenharia industrial e naval.') }}
       </p>
     </div>
@@ -38,14 +38,14 @@
 
   <!-- Seção Institucional 1 -->
   @if($quemsomos)
-    <section style="padding: 5.5rem 0; background-color: #ffffff;">
+    <section class="section-py section-bg-white">
       <div class="container-custom">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+        <div class="about-grid">
           
           <div>
             @if($quemsomos->imgtres)
-              <div style="overflow: hidden;">
-                <img src="{{ url('storage/' . $quemsomos->imgtres) }}" alt="{{ $quemsomos->titulodois }}" style="width: 100%; height: auto; display: block;">
+              <div class="about-img-box">
+                <img src="{{ url('storage/' . $quemsomos->imgtres) }}" alt="{{ $quemsomos->titulodois }}">
               </div>
             @endif
           </div>
@@ -68,9 +68,9 @@
     </section>
 
     <!-- Áreas de Atuação -->
-    <section style="padding: 5rem 0; background-color: var(--slate-50); border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+    <section class="section-py section-bg-slate">
       <div class="container-custom">
-        <div style="text-align: center; margin-bottom: 3.5rem;">
+        <div class="section-header-center">
           <div class="section-badge">
             <i class="ti ti-compass"></i>
             <span>{{ tr('Nosso Foco') }}</span>
@@ -78,7 +78,7 @@
           <h2 class="section-title">{{ tr('Nossas Áreas de Atuação') }}</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="services-grid">
           <div class="feature-card">
             <div class="feature-icon-wrapper">
               <i class="ti ti-building-factory-2" style="font-size: 2rem;"></i>
@@ -107,9 +107,9 @@
     </section>
 
     <!-- Seção Institucional 2 / Vídeo -->
-    <section style="padding: 5.5rem 0; background-color: #ffffff;">
+    <section class="section-py section-bg-white">
       <div class="container-custom">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+        <div class="about-grid">
           
           <div>
             <div class="section-badge">
@@ -130,14 +130,14 @@
 
           <div>
             @if(!empty($quemsomos->iframevideo))
-              <div style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15); border: 1px solid var(--slate-200); position: relative; padding-top: 56.25%;">
+              <div class="article-iframe-box" style="position: relative; padding-top: 56.25%; margin: 0;">
                 <div style="position: absolute; inset: 0;">
                   {!! $quemsomos->iframevideo !!}
                 </div>
               </div>
             @elseif($quemsomos->imgdois)
-              <div style="overflow: hidden;">
-                <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulotres }}" style="width: 100%; height: auto; display: block;">
+              <div class="about-img-box">
+                <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulotres }}">
               </div>
             @endif
           </div>
@@ -149,9 +149,9 @@
 
   <!-- Depoimentos -->
   @if($depoimento && $depoimento->count() > 0)
-    <section style="padding: 5.5rem 0; background-color: var(--navy-950); color: #ffffff;">
+    <section class="section-py section-bg-navy">
       <div class="container-custom">
-        <div style="text-align: center; margin-bottom: 3.5rem;">
+        <div class="section-header-center">
           <div class="section-badge" style="background: rgba(37,133,192,0.15); border-color: rgba(37,133,192,0.3);">
             <i class="ti ti-message-2"></i>
             <span>{{ tr('Depoimentos') }}</span>
@@ -159,11 +159,11 @@
           <h2 class="section-title" style="color: #ffffff;">{{ tr('Depoimentos de Clientes') }}</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="testimonials-grid">
           @foreach($depoimento as $item)
-            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column;">
+            <div class="testimonial-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff;">
               <i class="ti ti-quote" style="font-size: 2.25rem; color: var(--primary); margin-bottom: 1rem;"></i>
-              <p style="color: var(--slate-300); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1.5rem; flex-grow: 1;">
+              <p class="testimonial-quote" style="color: var(--slate-300);">
                 "{{ $item->texto }}"
               </p>
               <div style="display: flex; align-items: center; gap: 0.85rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
@@ -175,8 +175,8 @@
                   </div>
                 @endif
                 <div>
-                  <div style="font-weight: 700; color: #ffffff; font-size: 0.9375rem;">{{ $item->nome }}</div>
-                  <div style="color: var(--slate-400); font-size: 0.8125rem;">{{ $item->cargo }}</div>
+                  <div class="testimonial-author" style="color: #ffffff;">{{ $item->nome }}</div>
+                  <div class="testimonial-role">{{ $item->cargo }}</div>
                 </div>
               </div>
             </div>

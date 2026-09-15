@@ -21,18 +21,18 @@
 @section('content')
 
   <!-- Page Header Breadcrumb -->
-  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
+  <section class="subpage-hero">
     <div class="container-custom">
       <div style="max-width: 800px;">
-        <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
+        <div class="section-badge">
           <i class="ti ti-tool"></i>
           <span>{{ tr('Solução Especializada') }}</span>
         </div>
-        <h1 style="font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem; line-height: 1.25;">
+        <h1 class="subpage-hero-title">
           {{ $post->titulo }}
         </h1>
         @if(!empty($post->descricao))
-          <p style="color: var(--slate-300); font-size: 1.1rem; line-height: 1.6;">
+          <p class="subpage-hero-desc">
             {{ $post->descricao }}
           </p>
         @endif
@@ -41,35 +41,35 @@
   </section>
 
   <!-- Post Content & Sidebar Layout -->
-  <section style="padding: 5rem 0; background-color: var(--slate-50);">
+  <section class="section-py section-bg-slate">
     <div class="container-custom">
       <div class="layout-content-sidebar">
         
         <!-- Left: Service Details & Rich Text -->
-        <article style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 0;">
+        <article class="article-card">
           @if($post->img)
-            <div style="border-radius: 0.875rem; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1);">
-              <img src="{{ url('storage/' . $post->img) }}" alt="{{ $post->titulo }}" style="width: 100%; height: auto; display: block;">
+            <div class="article-media-box">
+              <img src="{{ url('storage/' . $post->img) }}" alt="{{ $post->titulo }}">
             </div>
           @endif
 
-          <div style="color: var(--slate-700); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem;">
+          <div class="article-body-text">
             {!! $post->texto !!}
           </div>
 
           <!-- Share buttons -->
-          <div style="padding-top: 1.5rem; border-top: 1px solid var(--slate-200); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-            <span style="font-weight: 700; color: var(--navy-950); font-size: 0.9375rem;">
+          <div class="share-bar">
+            <span class="share-bar-title">
               {{ tr('Compartilhar esta solução:') }}
             </span>
-            <div style="display: flex; gap: 0.5rem;">
-              <a href="https://wa.me/?text={{ urlencode($post->titulo . ' - ' . url('solucoes/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #25d366; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no WhatsApp">
+            <div class="share-bar-actions">
+              <a href="https://wa.me/?text={{ urlencode($post->titulo . ' - ' . url('solucoes/' . $post->urltitulo)) }}" target="_blank" class="share-btn share-btn-wa" title="Compartilhar no WhatsApp">
                 <i class="ti ti-brand-whatsapp"></i>
               </a>
-              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('solucoes/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no Facebook">
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('solucoes/' . $post->urltitulo)) }}" target="_blank" class="share-btn share-btn-fb" title="Compartilhar no Facebook">
                 <i class="ti ti-brand-facebook"></i>
               </a>
-              <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url('solucoes/' . $post->urltitulo)) }}&title={{ urlencode($post->titulo) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #0a66c2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no LinkedIn">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url('solucoes/' . $post->urltitulo)) }}&title={{ urlencode($post->titulo) }}" target="_blank" class="share-btn share-btn-in" title="Compartilhar no LinkedIn">
                 <i class="ti ti-brand-linkedin"></i>
               </a>
             </div>
@@ -77,19 +77,19 @@
         </article>
 
         <!-- Right Sidebar: Quick Contact & Quote Form -->
-        <aside style="position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 2rem;">
+        <aside class="sidebar-sticky">
           
           <!-- Direct WhatsApp Box -->
-          <div style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%); border-radius: 1.25rem; padding: 2rem; color: #ffffff; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
-            <i class="ti ti-headset" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; display: inline-block;"></i>
-            <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">
+          <div class="sidebar-cta-box">
+            <i class="ti ti-headset sidebar-cta-icon" style="font-size: 2.5rem;"></i>
+            <h3 class="sidebar-cta-title" style="font-size: 1.35rem;">
               {{ tr('Precisa de Atendimento Rápido?') }}
             </h3>
-            <p style="color: var(--slate-300); font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6;">
+            <p class="sidebar-cta-text" style="line-height: 1.6; margin-bottom: 1.5rem;">
               {{ tr('Nossa equipe de engenheiros está pronta para esclarecer dúvidas e apresentar uma proposta comercial sob medida.') }}
             </p>
             @if(!empty($siteconfig->whatsapp))
-              <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}?text={{ urlencode('Olá, gostaria de um orçamento sobre: ' . $post->titulo) }}" target="_blank" class="btn-primary" style="width: 100%; background-color: #25d366; border-color: #25d366;">
+              <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}?text={{ urlencode('Olá, gostaria de um orçamento sobre: ' . $post->titulo) }}" target="_blank" class="btn-primary btn-whatsapp" style="width: 100%;">
                 <i class="ti ti-brand-whatsapp" style="font-size: 1.2rem;"></i>
                 <span>{{ tr('Chamar no WhatsApp') }}</span>
               </a>
@@ -97,8 +97,8 @@
           </div>
 
           <!-- Quote Form Card -->
-          <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--slate-100);">
+          <div class="sidebar-card">
+            <h3 class="sidebar-title">
               {{ tr('Solicite um Orçamento') }}
             </h3>
 

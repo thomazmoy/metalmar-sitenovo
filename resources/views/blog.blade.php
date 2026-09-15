@@ -21,16 +21,16 @@
 @section('content')
 
   <!-- Page Header Breadcrumb -->
-  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
-    <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
+  <section class="subpage-hero" style="text-align: center;">
+    <div class="container-custom">
+      <div class="section-badge">
         <i class="ti ti-news"></i>
         <span>{{ tr('Conhecimento Técnico') }}</span>
       </div>
-      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+      <h1 class="subpage-hero-title">
         Blog MetalMar
       </h1>
-      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+      <p class="subpage-hero-desc" style="margin: 0 auto;">
         {{ tr('Artigos, novidades, dicas de manutenção preventiva e tendências dos setores naval e industrial.') }}
       </p>
 
@@ -46,19 +46,19 @@
   </section>
 
   <!-- Blog Listing Grid -->
-  <section style="padding: 5.5rem 0; background-color: var(--slate-50);">
+  <section class="section-py section-bg-slate">
     <div class="container-custom">
       
       @if($blog->count() > 0)
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; margin-bottom: 3.5rem;">
+        <div class="blog-grid" style="margin-bottom: 3.5rem;">
           @foreach($blog as $item)
             <article class="blog-card">
-              <a href="{{ url('blog/' . $item->urltitulo) }}" class="img-container">
+              <a href="{{ url('blog/' . $item->urltitulo) }}" class="blog-card-media">
                 @if($item->img)
                   <img src="{{ url('storage/' . $item->img) }}" alt="{{ $item->titulo }}" loading="lazy">
                 @endif
               </a>
-              <div style="padding: 1.75rem; display: flex; flex-direction: column; flex-grow: 1;">
+              <div class="blog-card-body">
                 
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.8125rem; color: var(--slate-500);">
                   <span style="display: flex; align-items: center; gap: 0.35rem;">
@@ -72,18 +72,18 @@
                   @endif
                 </div>
 
-                <h3 style="font-size: 1.25rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.75rem;">
-                  <a href="{{ url('blog/' . $item->urltitulo) }}" style="color: var(--navy-950); transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--navy-950)'">
+                <h3 class="blog-card-title">
+                  <a href="{{ url('blog/' . $item->urltitulo) }}" class="footer-link" style="color: var(--navy-950);">
                     {{ $item->titulo }}
                   </a>
                 </h3>
 
-                <p style="color: var(--slate-600); font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                <p class="blog-card-desc">
                   {{ $item->descricao }}
                 </p>
 
                 <div style="margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--slate-100);">
-                  <a href="{{ url('blog/' . $item->urltitulo) }}" style="display: inline-flex; align-items: center; gap: 0.35rem; color: var(--primary); font-weight: 700; font-size: 0.875rem;">
+                  <a href="{{ url('blog/' . $item->urltitulo) }}" class="blog-card-link">
                     <span>{{ tr('Ler Artigo Completo') }}</span>
                     <i class="ti ti-arrow-right"></i>
                   </a>

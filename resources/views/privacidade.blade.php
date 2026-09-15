@@ -21,26 +21,26 @@
 @section('content')
 
   <!-- Page Header Breadcrumb -->
-  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
-    <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
+  <section class="subpage-hero" style="text-align: center;">
+    <div class="container-custom">
+      <div class="section-badge">
         <i class="ti ti-shield-lock"></i>
         <span>{{ tr('LGPD & Termos') }}</span>
       </div>
-      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+      <h1 class="subpage-hero-title">
         {{ tr('Política de Privacidade') }}
       </h1>
-      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+      <p class="subpage-hero-desc" style="margin: 0 auto;">
         {{ tr('Transparência, proteção de dados e respeito à privacidade dos nossos usuários e clientes.') }}
       </p>
     </div>
   </section>
 
   <!-- Content Section -->
-  <section style="padding: 5.5rem 0; background-color: var(--slate-50);">
+  <section class="section-py section-bg-slate">
     <div class="container-custom" style="max-width: 900px;">
       
-      <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 3rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+      <div class="article-card" style="padding: 3rem;">
         @foreach($privacidade as $item)
           <div style="margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--slate-100);">
             <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1.25rem;">

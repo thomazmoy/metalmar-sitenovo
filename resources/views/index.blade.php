@@ -59,15 +59,15 @@
 
   <!-- 2. Quem Somos / Apresentação -->
   @if($quemsomos)
-    <section style="padding: 5.5rem 0; background-color: #ffffff;">
+    <section class="section-py section-bg-white">
       <div class="container-custom">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+        <div class="about-grid">
           
           <!-- Imagem com badge -->
           <div style="position: relative;">
             @if($quemsomos->imgum)
-              <div style="overflow: hidden;">
-                <img src="{{ url('storage/' . $quemsomos->imgum) }}" alt="{{ $quemsomos->tituloum }}" style="width: 100%; height: auto; display: block;">
+              <div class="about-img-box">
+                <img src="{{ url('storage/' . $quemsomos->imgum) }}" alt="{{ $quemsomos->tituloum }}">
               </div>
             @endif
             <div style="position: absolute; bottom: -1.5rem; right: -1rem; background: var(--navy-950); color: #ffffff; padding: 1.25rem 1.75rem; border-radius: 1rem; box-shadow: 0 15px 30px rgba(0,0,0,0.25); border-left: 4px solid var(--primary); display: flex; align-items: center; gap: 1rem;">
@@ -111,10 +111,10 @@
   @endif
 
   <!-- 3. Áreas de Atuação (Destaque Duplo) -->
-  <section style="padding: 5.5rem 0; background-color: var(--slate-50); border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200);">
+  <section class="section-py section-bg-slate">
     <div class="container-custom">
       
-      <div style="text-align: center; margin-bottom: 3.5rem;">
+      <div class="section-header-center">
         <div class="section-badge">
           <i class="ti ti-settings-cog"></i>
           <span>{{ tr('Especialidades') }}</span>
@@ -125,7 +125,7 @@
         </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+      <div class="services-grid">
         
         <!-- Card 1: Manutenção Industrial -->
         <div class="feature-card">
@@ -187,9 +187,9 @@
   </section>
 
   <!-- 4. Soluções e Capacidades Técnicas -->
-  <section style="padding: 5.5rem 0; background-color: #ffffff;">
+  <section class="section-py section-bg-white">
     <div class="container-custom">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+      <div class="about-grid">
         
         <!-- Lista de Soluções -->
         <div>
@@ -205,32 +205,32 @@
           </p>
 
           <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
-            <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary);">
-              <i class="ti ti-engine" style="font-size: 1.5rem; color: var(--primary); flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div class="about-feature-item" style="padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary); margin-bottom: 0;">
+              <i class="ti ti-engine about-feature-icon" style="background: transparent; color: var(--primary);"></i>
               <div>
                 <strong style="color: var(--navy-950); display: block; font-size: 1rem; margin-bottom: 0.25rem;">{{ tr('Preventiva e Corretiva de Motores') }}</strong>
                 <span style="color: var(--slate-600); font-size: 0.875rem;">{{ tr('Manutenção especializada para motores das linhas marítima e industrial.') }}</span>
               </div>
             </div>
 
-            <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary);">
-              <i class="ti ti-snowflake" style="font-size: 1.5rem; color: var(--primary); flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div class="about-feature-item" style="padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary); margin-bottom: 0;">
+              <i class="ti ti-snowflake about-feature-icon" style="background: transparent; color: var(--primary);"></i>
               <div>
                 <strong style="color: var(--navy-950); display: block; font-size: 1rem; margin-bottom: 0.25rem;">{{ tr('Refrigeração & PMOC') }}</strong>
                 <span style="color: var(--slate-600); font-size: 0.875rem;">{{ tr('Manutenção de sistemas de climatização com emissão e gestão de PMOC.') }}</span>
               </div>
             </div>
 
-            <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary);">
-              <i class="ti ti-flame" style="font-size: 1.5rem; color: var(--primary); flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div class="about-feature-item" style="padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary); margin-bottom: 0;">
+              <i class="ti ti-flame about-feature-icon" style="background: transparent; color: var(--primary);"></i>
               <div>
                 <strong style="color: var(--navy-950); display: block; font-size: 1rem; margin-bottom: 0.25rem;">{{ tr('Caldeiraria & Estruturas Metálicas') }}</strong>
                 <span style="color: var(--slate-600); font-size: 0.875rem;">{{ tr('Fabricação, reparos estruturais e soldagem especializada.') }}</span>
               </div>
             </div>
 
-            <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary);">
-              <i class="ti ti-users-group" style="font-size: 1.5rem; color: var(--primary); flex-shrink: 0; margin-top: 0.2rem;"></i>
+            <div class="about-feature-item" style="padding: 1rem; background: var(--slate-50); border-radius: 0.75rem; border-left: 3px solid var(--primary); margin-bottom: 0;">
+              <i class="ti ti-users-group about-feature-icon" style="background: transparent; color: var(--primary);"></i>
               <div>
                 <strong style="color: var(--navy-950); display: block; font-size: 1rem; margin-bottom: 0.25rem;">{{ tr('Mão de Obra Qualificada') }}</strong>
                 <span style="color: var(--slate-600); font-size: 0.875rem;">{{ tr('Supervisão, mecânica, caldeiraria, lubrificação e soldagem.') }}</span>
@@ -239,7 +239,7 @@
           </div>
 
           @if(!empty($siteconfig->whatsapp))
-            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}" target="_blank" class="btn-primary" style="background-color: #25d366; border-color: #25d366;">
+            <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}" target="_blank" class="btn-primary btn-whatsapp">
               <i class="ti ti-brand-whatsapp" style="font-size: 1.25rem;"></i>
               <span>{{ tr('Peça Seu Orçamento pelo WhatsApp') }}</span>
             </a>
@@ -254,8 +254,8 @@
         <!-- Imagem de Apoio -->
         <div>
           @if(!empty($quemsomos->imgdois))
-            <div style="overflow: hidden;">
-              <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulodois }}" style="width: 100%; height: auto; display: block;">
+            <div class="about-img-box">
+              <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulodois }}">
             </div>
           @endif
         </div>
@@ -266,10 +266,10 @@
 
   <!-- 5. Blog & Notícias Recentes -->
   @if($blog->count() > 0)
-    <section style="padding: 5.5rem 0; background-color: var(--slate-50); border-top: 1px solid var(--slate-200);">
+    <section class="section-py section-bg-slate">
       <div class="container-custom">
         
-        <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 3.5rem;">
+        <div class="section-header-row">
           <div>
             <div class="section-badge">
               <i class="ti ti-news"></i>
@@ -283,15 +283,15 @@
           </a>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+        <div class="blog-grid">
           @foreach($blog as $item)
             <article class="blog-card">
-              <a href="{{ url('blog/' . $item->urltitulo) }}" class="img-container">
+              <a href="{{ url('blog/' . $item->urltitulo) }}" class="blog-card-media">
                 @if($item->img)
                   <img src="{{ url('storage/' . $item->img) }}" alt="{{ $item->titulo }}" loading="lazy">
                 @endif
               </a>
-              <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+              <div class="blog-card-body">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.8125rem; color: var(--slate-500);">
                   <span style="display: flex; align-items: center; gap: 0.35rem;">
                     <i class="ti ti-calendar" style="color: var(--primary);"></i>
@@ -304,18 +304,18 @@
                   @endif
                 </div>
 
-                <h3 style="font-size: 1.2rem; font-weight: 700; line-height: 1.4; margin-bottom: 0.75rem;">
-                  <a href="{{ url('blog/' . $item->urltitulo) }}" style="color: var(--navy-950); transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--navy-950)'">
+                <h3 class="blog-card-title">
+                  <a href="{{ url('blog/' . $item->urltitulo) }}" class="footer-link" style="color: var(--navy-950);">
                     {{ $item->titulo }}
                   </a>
                 </h3>
 
-                <p style="color: var(--slate-600); font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.25rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                <p class="blog-card-desc">
                   {{ $item->descricao }}
                 </p>
 
                 <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--slate-100);">
-                  <a href="{{ url('blog/' . $item->urltitulo) }}" style="display: inline-flex; align-items: center; gap: 0.35rem; color: var(--primary); font-weight: 700; font-size: 0.875rem;">
+                  <a href="{{ url('blog/' . $item->urltitulo) }}" class="blog-card-link">
                     <span>{{ tr('Ler Artigo Completo') }}</span>
                     <i class="ti ti-arrow-right"></i>
                   </a>
@@ -331,9 +331,9 @@
 
   <!-- 6. Galeria de Projetos / Clientes -->
   @if($galeria->count() > 0)
-    <section style="padding: 5.5rem 0; background-color: #ffffff; border-top: 1px solid var(--slate-200);">
+    <section class="section-py section-bg-white" style="border-top: 1px solid var(--slate-200);">
       <div class="container-custom">
-        <div style="text-align: center; margin-bottom: 3.5rem;">
+        <div class="section-header-center">
           <div class="section-badge">
             <i class="ti ti-photo"></i>
             <span>{{ tr('Nosso Trabalho') }}</span>
@@ -342,20 +342,12 @@
           <p class="section-subtitle">{{ tr('Registros de manutenções executadas com alto rigor e segurança em campo.') }}</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem;">
+        <div class="gallery-grid">
           @foreach($galeria as $item)
-            <div class="feature-card" style="padding: 0.75rem; overflow: hidden;">
-              <div style="position: relative; padding-top: 65%; border-radius: 0.75rem; overflow: hidden; background: var(--slate-100);">
-                @if($item->img)
-                  <img src="{{ url('storage/' . $item->img) }}" alt="{{ $item->titulo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-                @endif
-              </div>
-              <div style="padding: 0.75rem 0.25rem 0.25rem;">
-                <h4 style="font-size: 1rem; font-weight: 700; color: var(--navy-950); margin-bottom: 0.25rem;">{{ $item->titulo }}</h4>
-                @if(!empty($item->descricao))
-                  <p style="color: var(--slate-500); font-size: 0.8125rem; line-height: 1.4;">{{ $item->descricao }}</p>
-                @endif
-              </div>
+            <div class="gallery-card">
+              @if($item->img)
+                <img src="{{ url('storage/' . $item->img) }}" alt="{{ $item->titulo }}" loading="lazy">
+              @endif
             </div>
           @endforeach
         </div>
@@ -365,9 +357,9 @@
 
   <!-- 7. Depoimentos -->
   @if($depoimento->count() > 0)
-    <section style="padding: 5.5rem 0; background-color: var(--navy-950); color: #ffffff;">
+    <section class="section-py section-bg-navy">
       <div class="container-custom">
-        <div style="text-align: center; margin-bottom: 3.5rem;">
+        <div class="section-header-center">
           <div class="section-badge" style="background: rgba(37,133,192,0.15); border-color: rgba(37,133,192,0.3);">
             <i class="ti ti-message-2"></i>
             <span>{{ tr('Avaliações') }}</span>
@@ -375,11 +367,11 @@
           <h2 class="section-title" style="color: #ffffff;">{{ tr('O Que Nossos Clientes Dizem') }}</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="testimonials-grid">
           @foreach($depoimento as $item)
-            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column;">
+            <div class="testimonial-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff;">
               <i class="ti ti-quote" style="font-size: 2.25rem; color: var(--primary); margin-bottom: 1rem;"></i>
-              <p style="color: var(--slate-300); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1.5rem; flex-grow: 1;">
+              <p class="testimonial-quote" style="color: var(--slate-300);">
                 "{{ $item->texto }}"
               </p>
               <div style="display: flex; align-items: center; gap: 0.85rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
@@ -391,8 +383,8 @@
                   </div>
                 @endif
                 <div>
-                  <div style="font-weight: 700; color: #ffffff; font-size: 0.9375rem;">{{ $item->nome }}</div>
-                  <div style="color: var(--slate-400); font-size: 0.8125rem;">{{ $item->cargo }}</div>
+                  <div class="testimonial-author" style="color: #ffffff;">{{ $item->nome }}</div>
+                  <div class="testimonial-role">{{ $item->cargo }}</div>
                 </div>
               </div>
             </div>
