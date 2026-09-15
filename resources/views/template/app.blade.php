@@ -114,11 +114,14 @@
       <!-- Actions (Language + CTA + Mobile Toggle) -->
       <div class="header-actions">
         <!-- Language Switcher -->
-        <select class="lang-select-custom" id="langSelectDesktop" title="{{ tr('Alterar Idioma') }}" onchange="handleLangChange(this.value)">
-          <option value="pt-BR" {{ session()->get('locale') == 'pt-BR' || !session()->has('locale') ? 'selected' : '' }}>🇧🇷 PT</option>
-          <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>🇬🇧 EN</option>
-          <option value="es" {{ session()->get('locale') == 'es' ? 'selected' : '' }}>🇪🇸 ES</option>
-        </select>
+        <div class="lang-select-wrapper">
+          <i class="ti ti-world lang-select-icon" aria-hidden="true"></i>
+          <select class="lang-select-custom" id="langSelectDesktop" title="{{ tr('Alterar Idioma') }}" aria-label="{{ tr('Alterar Idioma') }}" onchange="handleLangChange(this.value)">
+            <option value="pt-BR" {{ session()->get('locale') == 'pt-BR' || !session()->has('locale') ? 'selected' : '' }}>PT</option>
+            <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>EN</option>
+            <option value="es" {{ session()->get('locale') == 'es' ? 'selected' : '' }}>ES</option>
+          </select>
+        </div>
 
         <!-- CTA Button -->
         <a href="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}" class="btn-primary header-cta-btn" style="padding: 0.55rem 1.15rem; font-size: 0.875rem;" id="headerCtaBtn">
@@ -193,6 +196,19 @@
             {{ $siteconfig->email }}
           </a>
         @endif
+
+        <!-- Drawer Language Switcher -->
+        <div style="font-size: 0.8125rem; color: var(--slate-500); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem;">
+          {{ tr('Idioma') }}
+        </div>
+        <div class="lang-select-wrapper" style="width: 100%;">
+          <i class="ti ti-world lang-select-icon" aria-hidden="true"></i>
+          <select class="lang-select-custom" id="langSelectMobile" style="width: 100%;" title="{{ tr('Alterar Idioma') }}" aria-label="{{ tr('Alterar Idioma') }}" onchange="handleLangChange(this.value)">
+            <option value="pt-BR" {{ session()->get('locale') == 'pt-BR' || !session()->has('locale') ? 'selected' : '' }}>Português (PT)</option>
+            <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English (EN)</option>
+            <option value="es" {{ session()->get('locale') == 'es' ? 'selected' : '' }}>Español (ES)</option>
+          </select>
+        </div>
 
         <a href="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}" class="btn-primary" style="margin-top: 0.5rem; width: 100%;">
           {{ tr('Solicitar Orçamento') }}
@@ -368,11 +384,6 @@
     }
   </script>
 
-    // Language Change handler
-    function handleLangChange(locale) {
-      window.location.href = "{{ url('google/translate/change') }}?lang=" + encodeURIComponent(locale);
-    }
-  </script>
 
   @if(!empty($siteconfig->codchat))
     {!! $siteconfig->codchat !!}
