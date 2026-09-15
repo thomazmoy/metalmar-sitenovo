@@ -7,6 +7,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Stichoza\GoogleTranslate\GoogleTranslate as GT;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Schema;
+use App\Models\Siteconfig;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
@@ -37,5 +41,17 @@ class AppServiceProvider extends ServiceProvider
     {
         // Locale pt_BR para formatos de data e ordenação
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.UTF-8', 'portuguese');
+
+        // Injeção automática das configurações nas views (Site público e Painel Admin)
+        View::composer([
+            'index', 'quemsomos', 'solucao', 'post', 'blog', 'blog-post',
+            'pesquisa', 'contato', 'privacidade', 'template.*', 'painel.*',
+        ], function ($view) {
+            if (Schema::hasTable('siteconfig')) {
+                $siteconfig = Siteconfig::first();
+                $configuracao = Siteconfig::all();
+                $view->with(compact('siteconfig', 'configuracao'));
+            }
+        });
     }
 }

@@ -76,6 +76,10 @@
           <h3 class="title mb-4">{{ tr('Envie Sua Mensagem') }}</h3>
           <form method="POST" action="{{ route('store') }}" id="registerForm">
             @csrf
+            {{-- Campo Honeypot invisível para captura e bloqueio de spambots --}}
+            <div style="display:none !important;" aria-hidden="true">
+              <input type="text" name="hp_company_field" tabindex="-1" autocomplete="off">
+            </div>
             <input type="text" class="form-control" name="nome" id="nome" placeholder="{{ tr('Nome') }}" required>
             @error('nome')
               <label class="fw-bold text-vermelho">{{ $message }}</label>

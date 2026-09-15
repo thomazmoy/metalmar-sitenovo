@@ -115,7 +115,7 @@ Route::get('pesquisar', [SiteController::class, 'pesquisar'])->name('pesquisar')
 
 // Contato
 Route::get('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para', [SiteController::class, 'contato'])->name('contato');
-Route::post('store', [SiteController::class, 'store'])->name('store');
+Route::post('store', [SiteController::class, 'store'])->name('store')->middleware('throttle:5,1');
 
 // Política de Privacidade
 Route::get('politica-de-privacidade', [SiteController::class, 'privacidade'])->name('privacidade');

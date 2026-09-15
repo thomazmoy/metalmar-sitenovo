@@ -16,6 +16,9 @@ use App\Models\Siteconfig;
 use App\Models\Solucao;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Mail\NovoContatoRecebido;
 
 class SiteController extends Controller
 {
@@ -103,8 +106,26 @@ class SiteController extends Controller
 
     public function store(StoreContato $request): RedirectResponse
     {
+        // Se o honeypot foi preenchido por bot, simula sucesso e descarta
+        if (!empty($request->input('hp_company_field'))) {
+            Alert::success('Mensagem Enviada com Sucesso!', 'Em breve entraremos em contato.');
+            return back();
+        }
+
         $data = $request->only('nome', 'email', 'telefone', 'assunto', 'mensagem', 'situacao');
-        Contato::create($data);
+        $contato = Contato::create($data);
+
+        // Notificar administração da MetalMar por e-mail
+        try {
+            $siteconfig = Siteconfig::first();
+            $destinatario = $siteconfig?->email ?? config('mail.from.address');
+            if (!empty($destinatario)) {
+                Mail::to($destinatario)->send(new NovoContatoRecebido($contato));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Falha ao enviar e-mail de novo contato: ' . $e->getMessage());
+        }
+
         Alert::success('Mensagem Enviada com Sucesso!', 'Em breve entraremos em contato.');
 
         return back();

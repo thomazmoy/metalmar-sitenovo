@@ -19,6 +19,7 @@ class StoreContato extends FormRequest
             'telefone' => 'required|min:8',
             'assunto'  => 'required|min:3',
             'mensagem' => 'required|min:10',
+            'hp_company_field' => 'nullable|string',
         ];
     }
 
