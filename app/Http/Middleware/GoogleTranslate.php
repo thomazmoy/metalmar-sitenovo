@@ -13,7 +13,10 @@ class GoogleTranslate
     public function handle(Request $request, Closure $next): Response
     {
         if (Session::has('locale')) {
-            App::setLocale(Session::get('locale'));
+            $locale = Session::get('locale');
+            if (in_array($locale, ['pt-BR', 'en', 'es'], true)) {
+                App::setLocale($locale);
+            }
         }
 
         return $next($request);

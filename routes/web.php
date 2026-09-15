@@ -33,14 +33,64 @@ Route::get('google/translate/change', [GoogleTranslateController::class, 'google
 
 /*
 |--------------------------------------------------------------------------
-| Suporte
+| Suporte e Manutenção (protegido por auth)
 |--------------------------------------------------------------------------
 */
-Route::get('/limparcache', function () {
-    Artisan::call('optimize:clear');
-});
-Route::get('/storagelink', function () {
-    Artisan::call('storage:link');
+Route::middleware('auth')->group(function () {
+    Route::get('/limparcache', function () {
+        Artisan::call('optimize:clear');
+        return redirect()->back();
+    })->name('admin.limparcache');
+
+    Route::get('/storagelink', function () {
+        Artisan::call('storage:link');
+        return redirect()->back();
+    })->name('admin.storagelink');
+
+    Route::get('gerar-sitemap', function () {
+        $sitemap = Sitemap::create()
+            ->add(SitemapUrl::create(URL::to('/'))
+                ->setLastModificationDate(now())
+                ->setChangeFrequency('weekly')
+                ->setPriority(1.0))
+            ->add(SitemapUrl::create(URL::to('metalmar-manutencao-industrial-e-naval-em-belem-do-para'))
+                ->setChangeFrequency('monthly')
+                ->setPriority(0.8))
+            ->add(SitemapUrl::create(URL::to('solucoes-em-manutencao-industrial-e-naval-em-belem-do-para'))
+                ->setChangeFrequency('monthly')
+                ->setPriority(0.8))
+            ->add(SitemapUrl::create(URL::to('blog-metalmar'))
+                ->setChangeFrequency('weekly')
+                ->setPriority(1.0))
+            ->add(SitemapUrl::create(URL::to('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para'))
+                ->setChangeFrequency('monthly')
+                ->setPriority(0.8))
+            ->add(SitemapUrl::create(URL::to('politica-de-privacidade'))
+                ->setChangeFrequency('monthly')
+                ->setPriority(0.8));
+
+        foreach (Solucao::all() as $solucao) {
+            $sitemap->add(
+                SitemapUrl::create(URL::to('solucoes/' . $solucao->urltitulo))
+                    ->setLastModificationDate($solucao->updated_at)
+                    ->setChangeFrequency('weekly')
+                    ->setPriority(1.0)
+            );
+        }
+
+        foreach (Blog::all() as $blog) {
+            $sitemap->add(
+                SitemapUrl::create(URL::to('blog/' . $blog->urltitulo))
+                    ->setLastModificationDate($blog->updated_at)
+                    ->setChangeFrequency('weekly')
+                    ->setPriority(1.0)
+            );
+        }
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
+
+        return redirect(url('sitemap.xml'));
+    })->name('admin.sitemap');
 });
 
 /*
@@ -49,7 +99,7 @@ Route::get('/storagelink', function () {
 |--------------------------------------------------------------------------
 */
 // Index
-Route::get('', [SiteController::class, 'index'])->name('index');
+Route::get('/', [SiteController::class, 'index'])->name('index');
 
 // Quem Somos
 Route::get('metalmar-manutencao-industrial-e-naval-em-belem-do-para', [SiteController::class, 'quemsomos'])->name('quemsomos');
@@ -69,56 +119,6 @@ Route::post('store', [SiteController::class, 'store'])->name('store');
 
 // Política de Privacidade
 Route::get('politica-de-privacidade', [SiteController::class, 'privacidade'])->name('privacidade');
-
-/*
-|--------------------------------------------------------------------------
-| Sitemap (spatie/laravel-sitemap)
-|--------------------------------------------------------------------------
-*/
-Route::get('gerar-sitemap', function () {
-    $sitemap = Sitemap::create()
-        ->add(SitemapUrl::create(URL::to(''))
-            ->setLastModificationDate(now())
-            ->setChangeFrequency('weekly')
-            ->setPriority(1.0))
-        ->add(SitemapUrl::create(URL::to('metalmar-manutencao-industrial-e-naval-em-belem-do-para'))
-            ->setChangeFrequency('monthly')
-            ->setPriority(0.8))
-        ->add(SitemapUrl::create(URL::to('solucoes-em-manutencao-industrial-e-naval-em-belem-do-para'))
-            ->setChangeFrequency('monthly')
-            ->setPriority(0.8))
-        ->add(SitemapUrl::create(URL::to('blog-metalmar'))
-            ->setChangeFrequency('weekly')
-            ->setPriority(1.0))
-        ->add(SitemapUrl::create(URL::to('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para'))
-            ->setChangeFrequency('monthly')
-            ->setPriority(0.8))
-        ->add(SitemapUrl::create(URL::to('politica-de-privacidade'))
-            ->setChangeFrequency('monthly')
-            ->setPriority(0.8));
-
-    foreach (Solucao::all() as $solucao) {
-        $sitemap->add(
-            SitemapUrl::create(URL::to('solucoes/' . $solucao->urltitulo))
-                ->setLastModificationDate($solucao->updated_at)
-                ->setChangeFrequency('weekly')
-                ->setPriority(1.0)
-        );
-    }
-
-    foreach (Blog::all() as $blog) {
-        $sitemap->add(
-            SitemapUrl::create(URL::to('blog/' . $blog->urltitulo))
-                ->setLastModificationDate($blog->updated_at)
-                ->setChangeFrequency('weekly')
-                ->setPriority(1.0)
-        );
-    }
-
-    $sitemap->writeToFile(public_path('sitemap.xml'));
-
-    return redirect(url('sitemap.xml'));
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -142,7 +142,7 @@ Route::resource('admin/siteconfig', SiteconfigController::class)->middleware('au
 |--------------------------------------------------------------------------
 */
 Route::auth();
-Route::get('admin',    [DashboardController::class, 'index'])->name('dashboard');
+Route::get('admin',    [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::post('admin/toggle-situacao', [DashboardController::class, 'toggleSituacao'])->name('admin.toggle-situacao')->middleware('auth');
 Route::get('procurar', [BlogController::class, 'procurar'])->name('procurar')->middleware('auth');
 Route::get('search',   [ContatoController::class, 'search'])->name('search')->middleware('auth');

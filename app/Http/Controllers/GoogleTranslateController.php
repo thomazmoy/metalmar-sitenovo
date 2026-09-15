@@ -17,8 +17,15 @@ class GoogleTranslateController extends Controller
 
     public function googleTranslateChange(Request $request): RedirectResponse
     {
-        App::setLocale($request->lang);
-        Session::put('locale', $request->lang);
+        $allowedLocales = ['pt-BR', 'en', 'es'];
+        $lang = $request->input('lang', $request->query('lang', 'pt-BR'));
+
+        if (!in_array($lang, $allowedLocales, true)) {
+            $lang = 'pt-BR';
+        }
+
+        App::setLocale($lang);
+        Session::put('locale', $lang);
 
         return redirect()->back();
     }

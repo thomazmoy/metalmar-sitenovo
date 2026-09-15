@@ -6,8 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Siteconfig;
 use Illuminate\View\View;
 
+use Illuminate\Http\JsonResponse;
+
 class DashboardController extends Controller
 {
+    /**
+     * Models autorizadas para alternância de situação.
+     */
+    protected const ALLOWED_MODELS = [
+        'Banner',
+        'Blog',
+        'Categoria',
+        'Depoimento',
+        'Galeria',
+        'Privacidade',
+        'Quemsomos',
+        'Solucao',
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -15,15 +31,20 @@ class DashboardController extends Controller
 
     public function index(): View
     {
-        $this->data['configuracao'] = Siteconfig::all();
+        $configuracao = Siteconfig::all();
 
-        return view('painel.admin.dashboard', $this->data);
+        return view('painel.admin.dashboard', compact('configuracao'));
     }
-    public function toggleSituacao(Request $request)
+
+    public function toggleSituacao(Request $request): JsonResponse
     {
-        $model = $request->input('model');
+        $model = (string) $request->input('model');
         $id = $request->input('id');
         $situacao = (string) $request->input('situacao');
+
+        if (!in_array($model, self::ALLOWED_MODELS, true)) {
+            return response()->json(['success' => false, 'error' => 'Model não autorizada.'], 403);
+        }
 
         $modelClass = '\\App\\Models\\' . $model;
 
@@ -36,6 +57,6 @@ class DashboardController extends Controller
             }
         }
 
-        return response()->json(['success' => false], 400);
+        return response()->json(['success' => false, 'error' => 'Registro não encontrado.'], 404);
     }
 }
