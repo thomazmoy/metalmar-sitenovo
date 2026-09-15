@@ -23,7 +23,7 @@
   <!-- Page Header Breadcrumb -->
   <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
     <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4);">
+      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
         <i class="ti ti-building"></i>
         <span>{{ tr('Nossa Empresa') }}</span>
       </div>
@@ -152,7 +152,7 @@
     <section style="padding: 5.5rem 0; background-color: var(--navy-950); color: #ffffff;">
       <div class="container-custom">
         <div style="text-align: center; margin-bottom: 3.5rem;">
-          <div class="section-badge" style="background: rgba(230,70,30,0.15); border-color: rgba(230,70,30,0.3);">
+          <div class="section-badge" style="background: rgba(37,133,192,0.15); border-color: rgba(37,133,192,0.3);">
             <i class="ti ti-message-2"></i>
             <span>{{ tr('Depoimentos') }}</span>
           </div>

@@ -23,7 +23,7 @@
   <!-- Page Header Breadcrumb -->
   <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
     <div class="container-custom" style="text-align: center;">
-      <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4);">
+      <div class="section-badge" style="background: rgba(37,133,192,0.2); border-color: rgba(37,133,192,0.4);">
         <i class="ti ti-shield-lock"></i>
         <span>{{ tr('LGPD & Termos') }}</span>
       </div>

@@ -84,12 +84,12 @@
 
   <!-- Main Navigation Header -->
   <header class="site-header" id="mainHeader">
-    <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+    <div class="container-custom" style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.5rem; padding-bottom: 0.5rem;">
       
       <!-- Brand Logo -->
       <a href="{{ url('/') }}" style="display: flex; align-items: center;">
         @if(!empty($siteconfig->logoescura))
-          <img src="{{ url('storage/' . $siteconfig->logoescura) }}" alt="{{ $siteconfig->nomesite }}" style="max-height: 48px; width: auto;">
+          <img src="{{ url('storage/' . $siteconfig->logoescura) }}" alt="{{ $siteconfig->nomesite }}" style="max-height: 80px; width: auto;">
         @else
           <span style="font-size: 1.5rem; font-weight: 800; color: var(--navy-950); font-family: var(--font-display);">Metal<span style="color: var(--primary);">Mar</span></span>
         @endif
@@ -100,7 +100,7 @@
         <a href="{{ url('/') }}" class="nav-link-item {{ Request::is('/') ? 'active' : '' }}">
           {{ tr('Início') }}
         </a>
-        <a href="{{ url('metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}" class="nav-link-item {{ Request::is('*metalmar-manutencao-industrial*') ? 'active' : '' }}">
+        <a href="{{ url('metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}" class="nav-link-item {{ Request::is('metalmar-manutencao-industrial-e-naval-em-belem-do-para') ? 'active' : '' }}">
           {{ tr('Quem Somos') }}
         </a>
         <a href="{{ url('solucoes-em-manutencao-industrial-e-naval-em-belem-do-para') }}" class="nav-link-item {{ Request::is('*solucoes*') ? 'active' : '' }}">

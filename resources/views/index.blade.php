@@ -66,7 +66,7 @@
           <!-- Imagem com badge -->
           <div style="position: relative;">
             @if($quemsomos->imgum)
-              <div style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); border: 1px solid var(--slate-200);">
+              <div style="overflow: hidden;">
                 <img src="{{ url('storage/' . $quemsomos->imgum) }}" alt="{{ $quemsomos->tituloum }}" style="width: 100%; height: auto; display: block;">
               </div>
             @endif
@@ -254,7 +254,7 @@
         <!-- Imagem de Apoio -->
         <div>
           @if(!empty($quemsomos->imgdois))
-            <div style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); border: 1px solid var(--slate-200);">
+            <div style="overflow: hidden;">
               <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulodois }}" style="width: 100%; height: auto; display: block;">
             </div>
           @endif
@@ -368,7 +368,7 @@
     <section style="padding: 5.5rem 0; background-color: var(--navy-950); color: #ffffff;">
       <div class="container-custom">
         <div style="text-align: center; margin-bottom: 3.5rem;">
-          <div class="section-badge" style="background: rgba(230,70,30,0.15); border-color: rgba(230,70,30,0.3);">
+          <div class="section-badge" style="background: rgba(37,133,192,0.15); border-color: rgba(37,133,192,0.3);">
             <i class="ti ti-message-2"></i>
             <span>{{ tr('Avaliações') }}</span>
           </div>

@@ -4,20 +4,20 @@
    DESIGN TOKENS & RESET
    ========================================================================== */
 :root {
-    --primary: #e6461e;
-    --primary-hover: #d23a13;
-    --primary-light: #fff7ed;
-    --primary-ring: rgba(230, 70, 30, 0.25);
+    --primary: #2585c0;
+    --primary-hover: #1c71a6;
+    --primary-light: #eef6fb;
+    --primary-ring: rgba(37, 133, 192, 0.25);
     
-    --navy-950: #070d18;
-    --navy-900: #0c182b;
-    --navy-800: #13243d;
-    --navy-700: #1b3252;
-    --navy-600: #25446e;
+    --navy-950: #0b1731;
+    --navy-900: #152b5a;
+    --navy-800: #1b356e;
+    --navy-700: #23458b;
+    --navy-600: #2b54a8;
     
-    --blue-naval: #0284c7;
-    --blue-naval-hover: #0369a1;
-    --blue-naval-light: #f0f9ff;
+    --blue-naval: #2585c0;
+    --blue-naval-hover: #1c71a6;
+    --blue-naval-light: #f0f7fc;
     
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
@@ -114,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.35rem 0.85rem;
     background-color: var(--primary-light);
     color: var(--primary);
-    border: 1px solid rgba(230, 70, 30, 0.2);
+    border: 1px solid rgba(37, 133, 192, 0.25);
     border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 700;
@@ -273,14 +273,14 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0.625rem;
     border: 1px solid transparent;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(230, 70, 30, 0.3);
+    box-shadow: 0 4px 14px rgba(37, 133, 192, 0.3);
     transition: all 0.25s ease;
 }
 
 .btn-primary:hover {
     background-color: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230, 70, 30, 0.4);
+    box-shadow: 0 6px 20px rgba(37, 133, 192, 0.4);
 }
 
 .btn-secondary {
@@ -449,7 +449,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     margin-bottom: 1.25rem;
-    border: 1px solid rgba(230, 70, 30, 0.15);
+    border: 1px solid rgba(37, 133, 192, 0.15);
     transition: all 0.3s ease;
 }
 
