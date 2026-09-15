@@ -1,50 +1,59 @@
-<!DOCTYPE html>
 @extends('template.app')
+
 @section('metatags')
   @if(!empty($siteconfig->taghead))
-    {!!$siteconfig->taghead!!}
+    {!! $siteconfig->taghead !!}
   @endif
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Política de Privacidade | {{$siteconfig->nomesite}}</title>
-  <link rel="canonical" href='{{ url("politica-de-privacidade") }}'>
-  <meta property="og:url" content='{{ url("politica-de-privacidade") }}'>
-  <meta property="og:title" content="Política de Privacidade | {{$siteconfig->nomesite}}">
-  <meta property="og:image:alt" content="Política de Privacidade | {{$siteconfig->nomesite}}">
-  <meta name="twitter:url" content='{{ url("politica-de-privacidade") }}'>
-  <meta name="twitter:title" content="Política de Privacidade | {{$siteconfig->nomesite}}">
+  <title>{{ tr('Política de Privacidade') }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}</title>
+  <link rel="canonical" href="{{ url('politica-de-privacidade') }}">
+  <meta property="og:url" content="{{ url('politica-de-privacidade') }}">
+  <meta property="og:title" content="Política de Privacidade | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta property="og:image:alt" content="Política de Privacidade | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta name="twitter:url" content="{{ url('politica-de-privacidade') }}">
+  <meta name="twitter:title" content="Política de Privacidade | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
 @endsection
+
 @section('metatagsog')
   @include('template.metatags')
 @endsection
+
 @section('content')
 
-  <!--Breadcrumb -->
-  <section class="w3l-about-breadcrumb">
-    <div class="breadcrumb-bg breadcrumb-bg-contact py-5">
-      <div class="container text-center py-lg-5 py-md-3">
-        <h2>{{ tr('Política de Privacidade') }}</h2>
+  <!-- Page Header Breadcrumb -->
+  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
+    <div class="container-custom" style="text-align: center;">
+      <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4);">
+        <i class="ti ti-shield-lock"></i>
+        <span>{{ tr('LGPD & Termos') }}</span>
       </div>
+      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+        {{ tr('Política de Privacidade') }}
+      </h1>
+      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+        {{ tr('Transparência, proteção de dados e respeito à privacidade dos nossos usuários e clientes.') }}
+      </p>
     </div>
   </section>
 
-  <!-- Quem Somos-->
-  @foreach($privacidade as $privacidades)
-    <section class="w3l-features-photo-7 py-5">
-      <div class="w3l-features-photo-7_sur py-lg-5 py-sm-3">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-10 sobre-p m-auto">
-              <h2 class="fw-bold">{{ $privacidades->titulo }}</h2>
-              <div class="sobre-p text-justify">
-                {!! $privacidades->texto !!}
-              </div>
+  <!-- Content Section -->
+  <section style="padding: 5.5rem 0; background-color: var(--slate-50);">
+    <div class="container-custom" style="max-width: 900px;">
+      
+      <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 3rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        @foreach($privacidade as $item)
+          <div style="margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--slate-100);">
+            <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1.25rem;">
+              {{ $item->titulo }}
+            </h2>
+            <div style="color: var(--slate-700); font-size: 1.05rem; line-height: 1.8;">
+              {!! $item->texto !!}
             </div>
           </div>
-        </div>
+        @endforeach
       </div>
-    </section>
-  @endforeach
+
+    </div>
+  </section>
 
 @endsection

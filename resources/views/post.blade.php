@@ -1,108 +1,145 @@
-<!DOCTYPE html>
-@extends('template.app-post')
+@extends('template.app')
+
 @section('metatags')
   @if(!empty($siteconfig->taghead))
-    {!!$siteconfig->taghead!!}
+    {!! $siteconfig->taghead !!}
   @endif
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  @if(!empty($siteconfig->facebookid))
-    <meta property="fb:app_id" content="{{$siteconfig->facebookid}}">
-  @endif
-  <link rel="canonical" href='{{ url("solucoes/{$post->urltitulo}") }}'>
-  <meta property="og:url" content='{{ url("solucoes/{$post->urltitulo}") }}'>
-  <meta name="twitter:url" content='{{ url("solucoes/{$post->urltitulo}") }}'>
+  <title>{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}</title>
+  <link rel="canonical" href="{{ url('solucoes/' . $post->urltitulo) }}">
+  <meta property="og:url" content="{{ url('solucoes/' . $post->urltitulo) }}">
+  <meta property="og:title" content="{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta property="og:description" content="{{ $post->descricao }}">
+  <meta name="twitter:url" content="{{ url('solucoes/' . $post->urltitulo) }}">
+  <meta name="twitter:title" content="{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
 @endsection
+
 @section('metatagsog')
   @include('template.metatags-post')
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection
+
 @section('content')
 
-  <!--Breadcrumb -->
-  <section class="w3l-about-breadcrumb">
-    <div class="breadcrumb-bg breadcrumb-bg-contact py-5">
-      <div class="container text-center py-lg-5 py-md-3">
-        <h2>{{ $post->titulo }}</h2>
+  <!-- Page Header Breadcrumb -->
+  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
+    <div class="container-custom">
+      <div style="max-width: 800px;">
+        <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4);">
+          <i class="ti ti-tool"></i>
+          <span>{{ tr('Solução Especializada') }}</span>
+        </div>
+        <h1 style="font-size: 2.5rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem; line-height: 1.25;">
+          {{ $post->titulo }}
+        </h1>
+        @if(!empty($post->descricao))
+          <p style="color: var(--slate-300); font-size: 1.1rem; line-height: 1.6;">
+            {{ $post->descricao }}
+          </p>
+        @endif
       </div>
     </div>
   </section>
 
-  <!-- Post -->
-  <div class="w3l-news" id="news">
-    <section id="grids5-block" class="py-5">
-      <div class="container py-lg-4 py-sm-3">
-        <div class="row justify-content-between">
-          <div class="col-lg-8 bg-branco rounded box-shadow-1 p-4">
-            @if($post->img)
-              <img src='{{ url("storage/{$post->img}") }}' class="img-fluid d-block w-100 rounded text-center" alt="{{$post->titulo}}">
+  <!-- Post Content & Sidebar Layout -->
+  <section style="padding: 5rem 0; background-color: var(--slate-50);">
+    <div class="container-custom">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: flex-start;">
+        
+        <!-- Left: Service Details & Rich Text -->
+        <article style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+          @if($post->img)
+            <div style="border-radius: 0.875rem; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1);">
+              <img src="{{ url('storage/' . $post->img) }}" alt="{{ $post->titulo }}" style="width: 100%; height: auto; display: block;">
+            </div>
+          @endif
+
+          <div style="color: var(--slate-700); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem;">
+            {!! $post->texto !!}
+          </div>
+
+          <!-- Share buttons -->
+          <div style="padding-top: 1.5rem; border-top: 1px solid var(--slate-200); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <span style="font-weight: 700; color: var(--navy-950); font-size: 0.9375rem;">
+              {{ tr('Compartilhar esta solução:') }}
+            </span>
+            <div style="display: flex; gap: 0.5rem;">
+              <a href="https://wa.me/?text={{ urlencode($post->titulo . ' - ' . url('solucoes/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #25d366; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no WhatsApp">
+                <i class="ti ti-brand-whatsapp"></i>
+              </a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('solucoes/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no Facebook">
+                <i class="ti ti-brand-facebook"></i>
+              </a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url('solucoes/' . $post->urltitulo)) }}&title={{ urlencode($post->titulo) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #0a66c2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Compartilhar no LinkedIn">
+                <i class="ti ti-brand-linkedin"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Right Sidebar: Quick Contact & Quote Form -->
+        <aside style="position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 2rem;">
+          
+          <!-- Direct WhatsApp Box -->
+          <div style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%); border-radius: 1.25rem; padding: 2rem; color: #ffffff; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+            <i class="ti ti-headset" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; display: inline-block;"></i>
+            <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">
+              {{ tr('Precisa de Atendimento Rápido?') }}
+            </h3>
+            <p style="color: var(--slate-300); font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6;">
+              {{ tr('Nossa equipe de engenheiros está pronta para esclarecer dúvidas e apresentar uma proposta comercial sob medida.') }}
+            </p>
+            @if(!empty($siteconfig->whatsapp))
+              <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}?text={{ urlencode('Olá, gostaria de um orçamento sobre: ' . $post->titulo) }}" target="_blank" class="btn-primary" style="width: 100%; background-color: #25d366; border-color: #25d366;">
+                <i class="ti ti-brand-whatsapp" style="font-size: 1.2rem;"></i>
+                <span>{{ tr('Chamar no WhatsApp') }}</span>
+              </a>
             @endif
-            <div class="sobre-p text-justify mt-3">
-              {!! $post->texto !!}
-            </div>
-            <div class="d-grid justify-content-center my-4">
-              <h4 class="fw-bold text-center pb-2">{{ tr('Compartilhe') }}</h4>
-              <div class="a2a_kit a2a_kit_size_32 a2a_default_style d-flex justify-content-lg-start justify-content-center">
-                <a class="a2a_button_facebook"></a>
-                <a class="a2a_button_twitter"></a>
-                <a class="a2a_button_whatsapp"></a>
-                <a class="a2a_button_telegram"></a>
-              </div>
-              <script>
-                var a2a_config = a2a_config || {};
-                a2a_config.locale = "pt-BR";
-              </script>
-              <script async src="https://static.addtoany.com/menu/page.js"></script>
-            </div>
           </div>
-          <div class="col-lg-4 p-4">
-            <div class="blog-info text-center">
-              <h3 class="fw-bold pb-3">{{ tr('Solicitar Orçamento!') }}</h3>
-              <a href="{{$siteconfig->whatsapp}}" class="btn btn-whatsapp btn-style mb-4" target="_blank"><span class="fa fa-whatsapp fw-bold fs-4 mr-2"></span> {{ tr('WhatsApp') }}</a>
-              <a href='tel:{{preg_replace("/[^0-9]/", "", $siteconfig->celular)}}' class="btn btn-primary btn-style mb-4" target="_blank"><span class="fa fa-mobile fw-bold fs-4 mr-2"></span> {{ tr('Celular') }}</a>
-            </div>
-            <div class="w3l-contact bg-branco text-center box-shadow-1 p-3">
-              <h3 class="fw-bold pb-3">{{ tr('Envie Seus Dados') }}</h3>
-              <div class="contact-form">
-                <form method="POST" action="{{ route('store') }}" id="registerForm">
-                  @csrf
-                  <input type="text" class="form-control" name="nome" id="nome" placeholder="{{ tr('Nome') }}" required>
-                  @error('nome')
-                    <label class="fw-bold text-vermelho">{{ $message }}</label>
-                  @enderror
-                  <br>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                  @error('email')
-                    <label class="fw-bold text-vermelho">{{ $message }}</label>
-                  @enderror
-                  <br>
-                  <input type="text" class="form-control" name="telefone" id="telefone" placeholder="{{ tr('Telefone') }}" required>
-                  @error('telefone')
-                    <label class="fw-bold text-vermelho">{{ $message }}</label>
-                  @enderror
-                  <br>
-                  <input type="hidden" class="form-control" name="assunto" id="assunto" value="{{$post->titulo}}">
-                  <textarea class="form-control h-ms-150" name="mensagem" id="mensagem" placeholder="{{ tr('Sua Mensagem') }}" required></textarea>
-                  @error('mensagem')
-                    <label class="fw-bold text-vermelho">{{ $message }}</label>
-                  @enderror
-                  <br>
-                  <label class="text-justify">{{ tr('Ao clicar na confirmação abaixo, você declara expressamente estar de acordo com a captação dos dados informados na') }} <a href="politica-de-privacidade" target="_blank">{{ tr('POLÍTICA DE PRIVACIDADE') }}</a>{{ tr(', para fins do contato solicitado, nos termos do art. 7º, I, da LGPD.') }}</label>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheckDisabled1" required>
-                    <label class="custom-control-label text-justify" for="customCheckDisabled1">{{ tr('Estou de concordo com o armazenamento destes dados para o propósito de contato requerido.') }}</label>
-                  </div>
-                  <br>
-                  <button class="btn btn-primary btn-style" type="submit">{{ tr('Enviar Agora!') }} <span class="fa fa-angle-double-right fw-bold ml-2"></span></button>
-                </form>
+
+          <!-- Quote Form Card -->
+          <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--slate-100);">
+              {{ tr('Solicite um Orçamento') }}
+            </h3>
+
+            <form method="POST" action="{{ route('store') }}">
+              @csrf
+              <div style="display:none !important;" aria-hidden="true">
+                <input type="text" name="hp_company_field" tabindex="-1" autocomplete="off">
               </div>
-            </div>
+              <input type="hidden" name="assunto" value="{{ $post->titulo }}">
+
+              <div class="form-group">
+                <label class="form-label-custom">{{ tr('Nome Completo') }}</label>
+                <input type="text" class="form-input-custom" name="nome" placeholder="{{ tr('Seu Nome') }}" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label-custom">E-mail</label>
+                <input type="email" class="form-input-custom" name="email" placeholder="seuemail@empresa.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label-custom">{{ tr('Telefone / Celular') }}</label>
+                <input type="text" class="form-input-custom" name="telefone" placeholder="(00) 00000-0000" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label-custom">{{ tr('Mensagem') }}</label>
+                <textarea class="form-input-custom" name="mensagem" placeholder="{{ tr('Descreva brevemente a sua demanda...') }}" required style="min-height: 100px;"></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%;">
+                <span>{{ tr('Enviar Solicitação') }}</span>
+                <i class="ti ti-send"></i>
+              </button>
+            </form>
           </div>
-        </div>
+
+        </aside>
+
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
 @endsection

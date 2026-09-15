@@ -1,125 +1,220 @@
-<!DOCTYPE html>
 @extends('template.app')
+
 @section('metatags')
   @if(!empty($siteconfig->taghead))
-    {!!$siteconfig->taghead!!}
+    {!! $siteconfig->taghead !!}
   @endif
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Contato | {{$siteconfig->nomesite}}</title>
-  <link rel="canonical" href='{{ url("contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para") }}'>
-  <meta property="og:url" content='{{ url("contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para") }}'>
-  <meta property="og:title" content="Contato | {{$siteconfig->nomesite}}">
-  <meta property="og:image:alt" content="Contato | {{$siteconfig->nomesite}}">
-  <meta name="twitter:url" content='{{ url("contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para") }}'>
-  <meta name="twitter:title" content="Contato | {{$siteconfig->nomesite}}">
+  <title>{{ tr('Fale Conosco') }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}</title>
+  <link rel="canonical" href="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}">
+  <meta property="og:url" content="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}">
+  <meta property="og:title" content="Contato | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta property="og:image:alt" content="Contato | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta name="twitter:url" content="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}">
+  <meta name="twitter:title" content="Contato | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
 @endsection
+
 @section('metatagsog')
   @include('template.metatags')
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection
+
 @section('content')
 
-  <!--Breadcrumb -->
-  <section class="w3l-about-breadcrumb">
-    <div class="breadcrumb-bg breadcrumb-bg-contact py-5">
-      <div class="container text-center py-lg-5 py-md-3">
-        <h2>{{ tr('Contato') }}</h2>
+  <!-- Page Header Breadcrumb -->
+  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
+    <div class="container-custom" style="text-align: center;">
+      <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4);">
+        <i class="ti ti-mail"></i>
+        <span>{{ tr('Canais de Atendimento') }}</span>
       </div>
+      <h1 style="font-size: 2.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+        {{ tr('Fale Conosco') }}
+      </h1>
+      <p style="color: var(--slate-300); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+        {{ tr('Estamos à disposição para atender sua demanda com agilidade, seriedade e precisão técnica.') }}
+      </p>
     </div>
   </section>
 
-  <!-- Contatos -->
-  <section class="w3l-contact py-5" id="contact">
-    <div class="container py-lg-3">
-      <div class="row justify-content-center pb-5">
-        <div class="col-lg-6 col-md-8 mt-md-0 mt-5 w3-contact-address">
-          <h3 class="title mb-4">{{ tr('Fale Conosco!') }}</h3>
-          <b class="text-verde">{{ tr('Endereço:') }}</b>
-          <p><a href="{{$siteconfig->linkendereco}}">{{ $siteconfig->endereco }}</a></p>
-          <hr>
-          <b class="text-verde">{{ tr('Celular:') }}</b>
-          <p><a href='tel:{{preg_replace("/[^0-9]/", "", $siteconfig->celular)}}'>{{$siteconfig->celular}}</a></p>
-          <b class="text-verde">{{ tr('Telefone:') }}</b>
-          <p><a href='tel:{{preg_replace("/[^0-9]/", "", $siteconfig->telefone)}}'>{{$siteconfig->telefone}}</a></p>
-          <hr>
-          <b class="text-verde">Email:</b>
-          <p><a href="mailto:{{$siteconfig->email}}">{{$siteconfig->email}}</a></p>
-          <hr>
-          <div class="widget-social-icons mt-3">
-            <b class="text-verde mb-3">{{ tr('Redes Sociais:') }}</b>
-            <ul class="icon-rounded">
+  <!-- Contact Form & Details Section -->
+  <section style="padding: 5.5rem 0; background-color: var(--slate-50);">
+    <div class="container-custom">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: flex-start;">
+        
+        <!-- Left: Contact Details Cards -->
+        <div>
+          <div class="section-badge">
+            <i class="ti ti-phone-call"></i>
+            <span>{{ tr('Informações Diretas') }}</span>
+          </div>
+          <h2 class="section-title" style="margin-bottom: 1.5rem;">
+            {{ tr('Como Podemos Ajudar?') }}
+          </h2>
+          <p style="color: var(--slate-600); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2.5rem;">
+            {{ tr('Entre em contato pelos nossos canais oficiais de telefone, e-mail ou WhatsApp, ou preencha o formulário para receber uma proposta técnica.') }}
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem;">
+            
+            @if(!empty($siteconfig->endereco))
+              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i class="ti ti-map-pin" style="font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">{{ tr('Endereço') }}</h4>
+                  <a href="{{ $siteconfig->linkendereco }}" target="_blank" style="color: var(--navy-950); font-weight: 600; font-size: 0.95rem;">
+                    {{ $siteconfig->endereco }}
+                  </a>
+                </div>
+              </div>
+            @endif
+
+            @if(!empty($siteconfig->celular))
+              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i class="ti ti-device-mobile" style="font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">{{ tr('Celular / Comercial') }}</h4>
+                  <a href="tel:{{ preg_replace('/[^0-9]/', '', $siteconfig->celular) }}" style="color: var(--navy-950); font-weight: 600; font-size: 0.95rem;">
+                    {{ $siteconfig->celular }}
+                  </a>
+                </div>
+              </div>
+            @endif
+
+            @if(!empty($siteconfig->email))
+              <div style="display: flex; gap: 1rem; padding: 1.25rem; background: #ffffff; border-radius: 1rem; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
+                <div style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <i class="ti ti-mail" style="font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                  <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">E-mail</h4>
+                  <a href="mailto:{{ $siteconfig->email }}" style="color: var(--navy-950); font-weight: 600; font-size: 0.95rem;">
+                    {{ $siteconfig->email }}
+                  </a>
+                </div>
+              </div>
+            @endif
+
+          </div>
+
+          <!-- Social Media Icons -->
+          <div>
+            <h4 style="font-size: 0.875rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">
+              {{ tr('Redes Sociais Oficiais') }}
+            </h4>
+            <div style="display: flex; gap: 0.75rem;">
               @if(!empty($siteconfig->facebook))
-                <li><a class="social-link text-white facebook" href="{{$siteconfig->facebook}}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                <a href="{{ $siteconfig->facebook }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #1877f2; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                  <i class="ti ti-brand-facebook"></i>
+                </a>
               @endif
               @if(!empty($siteconfig->instagram))
-                <li><a class="social-link text-white instagram" href="{{$siteconfig->instagram}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                <a href="{{ $siteconfig->instagram }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #e1306c; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                  <i class="ti ti-brand-instagram"></i>
+                </a>
               @endif
               @if(!empty($siteconfig->whatsapp))
-                <li><a class="social-link text-white whatsapp" href="{{$siteconfig->whatsapp}}" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
-              @endif
-              @if(!empty($siteconfig->twitter))
-                <li><a class="social-link text-white twitter" href="{{$siteconfig->twitter}}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $siteconfig->whatsapp) }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #25d366; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                  <i class="ti ti-brand-whatsapp"></i>
+                </a>
               @endif
               @if(!empty($siteconfig->linkedin))
-                <li><a class="social-link text-white linkedin" href="{{$siteconfig->linkedin}}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                <a href="{{ $siteconfig->linkedin }}" target="_blank" style="width: 2.75rem; height: 2.75rem; border-radius: 0.65rem; background: #ffffff; border: 1px solid var(--slate-200); color: #0a66c2; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                  <i class="ti ti-brand-linkedin"></i>
+                </a>
               @endif
-              @if(!empty($siteconfig->youtube))
-                <li><a class="social-link text-white youtube" href="{{$siteconfig->youtube}}" target="_blank"><i class="fa fa-youtube"></i></a></li>
-              @endif
-            </ul>
+            </div>
           </div>
+
         </div>
-        <div class="col-md-6 contact-form">
-          <h3 class="title mb-4">{{ tr('Envie Sua Mensagem') }}</h3>
-          <form method="POST" action="{{ route('store') }}" id="registerForm">
+
+        <!-- Right: Modern Contact Form Card -->
+        <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);">
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--navy-950); margin-bottom: 0.5rem;">
+            {{ tr('Envie Sua Mensagem') }}
+          </h3>
+          <p style="color: var(--slate-500); font-size: 0.9375rem; margin-bottom: 2rem;">
+            {{ tr('Preencha os campos abaixo e entraremos em contato o mais breve possível.') }}
+          </p>
+
+          <form method="POST" action="{{ route('store') }}">
             @csrf
-            {{-- Campo Honeypot invisível para captura e bloqueio de spambots --}}
+
+            {{-- Honeypot oculto anti-spam --}}
             <div style="display:none !important;" aria-hidden="true">
               <input type="text" name="hp_company_field" tabindex="-1" autocomplete="off">
             </div>
-            <input type="text" class="form-control" name="nome" id="nome" placeholder="{{ tr('Nome') }}" required>
-            @error('nome')
-              <label class="fw-bold text-vermelho">{{ $message }}</label>
-            @enderror
-            <br>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-            @error('email')
-              <label class="fw-bold text-vermelho">{{ $message }}</label>
-            @enderror
-            <br>
-            <input type="text" class="form-control" name="telefone" id="telefone" placeholder="{{ tr('Telefone') }}" required>
-            @error('telefone')
-              <label class="fw-bold text-vermelho">{{ $message }}</label>
-            @enderror
-            <br>
-            <input type="text" class="form-control" name="assunto" id="assunto" placeholder="{{ tr('Assunto') }}" required>
-            @error('assunto')
-              <label class="fw-bold text-vermelho">{{ $message }}</label>
-            @enderror
-            <br>
-            <textarea class="form-control h-ms-150" name="mensagem" id="mensagem" placeholder="{{ tr('Sua Mensagem') }}" required></textarea>
-            @error('mensagem')
-              <label class="fw-bold text-vermelho">{{ $message }}</label>
-            @enderror
-            <br>
-            <label class="text-justify">{{ tr('Ao clicar na confirmação abaixo, você declara expressamente estar de acordo com a captação dos dados informados na') }} <a href="politica-de-privacidade" target="_blank">{{ tr('POLÍTICA DE PRIVACIDADE') }}</a>{{ tr(', para fins do contato solicitado, nos termos do art. 7º, I, da LGPD.') }}</label>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customCheckDisabled1" required>
-              <label class="custom-control-label text-justify" for="customCheckDisabled1">{{ tr('Estou de concordo com o armazenamento destes dados para o propósito de contato requerido.') }}</label>
+
+            <div class="form-group">
+              <label class="form-label-custom">{{ tr('Nome Completo') }} *</label>
+              <input type="text" class="form-input-custom" name="nome" placeholder="{{ tr('Digite seu nome') }}" value="{{ old('nome') }}" required>
+              @error('nome')
+                <span style="color: #ef4444; font-size: 0.8125rem; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+              @enderror
             </div>
-            <br>
-            <button class="btn btn-primary btn-style" type="submit">{{ tr('Enviar Agora!') }} <span class="fa fa-angle-double-right fw-bold ml-2"></span></button>
+
+            <div class="form-group">
+              <label class="form-label-custom">E-mail *</label>
+              <input type="email" class="form-input-custom" name="email" placeholder="seuemail@empresa.com" value="{{ old('email') }}" required>
+              @error('email')
+                <span style="color: #ef4444; font-size: 0.8125rem; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">{{ tr('Telefone / WhatsApp') }} *</label>
+              <input type="text" class="form-input-custom" name="telefone" placeholder="(00) 00000-0000" value="{{ old('telefone') }}" required>
+              @error('telefone')
+                <span style="color: #ef4444; font-size: 0.8125rem; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">{{ tr('Assunto') }} *</label>
+              <input type="text" class="form-input-custom" name="assunto" placeholder="{{ tr('Ex: Orçamento de Manutenção Naval') }}" value="{{ old('assunto') }}" required>
+              @error('assunto')
+                <span style="color: #ef4444; font-size: 0.8125rem; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+              @enderror
+            </div>
+
+            <div class="form-group">
+              <label class="form-label-custom">{{ tr('Mensagem') }} *</label>
+              <textarea class="form-input-custom" name="mensagem" placeholder="{{ tr('Como podemos ajudar a sua empresa?') }}" required style="min-height: 120px;">{{ old('mensagem') }}</textarea>
+              @error('mensagem')
+                <span style="color: #ef4444; font-size: 0.8125rem; margin-top: 0.25rem; display: block;">{{ $message }}</span>
+              @enderror
+            </div>
+
+            <!-- LGPD disclaimer -->
+            <div style="margin-bottom: 1.5rem; font-size: 0.8125rem; color: var(--slate-500); line-height: 1.5;">
+              <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer;">
+                <input type="checkbox" required style="margin-top: 0.2rem;">
+                <span>
+                  {{ tr('Declaro estar de acordo com o tratamento dos meus dados para fins de retorno comercial, conforme a') }} 
+                  <a href="{{ url('politica-de-privacidade') }}" target="_blank" style="color: var(--primary); text-decoration: underline;">{{ tr('Política de Privacidade') }}</a>.
+                </span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 0.85rem;">
+              <span>{{ tr('Enviar Mensagem') }}</span>
+              <i class="ti ti-send"></i>
+            </button>
           </form>
         </div>
+
       </div>
     </div>
   </section>
 
-  <div class="map">
-    {!!$siteconfig->iframemapa!!}
-  </div>
+  <!-- Google Map Embed -->
+  @if(!empty($siteconfig->iframemapa))
+    <section style="line-height: 0; filter: grayscale(0.2) contrast(1.1);">
+      {!! $siteconfig->iframemapa !!}
+    </section>
+  @endif
 
 @endsection

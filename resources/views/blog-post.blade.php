@@ -1,103 +1,154 @@
-<!DOCTYPE html>
-@extends('template.app-post')
+@extends('template.app')
+
 @section('metatags')
   @if(!empty($siteconfig->taghead))
-    {!!$siteconfig->taghead!!}
+    {!! $siteconfig->taghead !!}
   @endif
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  @if(!empty($siteconfig->facebookid))
-    <meta property="fb:app_id" content="{{$siteconfig->facebookid}}">
-  @endif
-  <link rel="canonical" href='{{ url("blog/{$post->urltitulo}") }}'>
-  <meta property="og:url" content='{{ url("blog/{$post->urltitulo}") }}'>
-  <meta name="twitter:url" content='{{ url("blog/{$post->urltitulo}") }}'>
+  <title>{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}</title>
+  <link rel="canonical" href="{{ url('blog/' . $post->urltitulo) }}">
+  <meta property="og:url" content="{{ url('blog/' . $post->urltitulo) }}">
+  <meta property="og:title" content="{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
+  <meta property="og:description" content="{{ $post->descricao }}">
+  <meta name="twitter:url" content="{{ url('blog/' . $post->urltitulo) }}">
+  <meta name="twitter:title" content="{{ $post->titulo }} | {{ $siteconfig->nomesite ?? 'MetalMar' }}">
 @endsection
+
 @section('metatagsog')
   @include('template.metatags-post')
 @endsection
+
 @section('content')
 
-  <!--Breadcrumb -->
-  <section class="w3l-about-breadcrumb">
-    <div class="breadcrumb-bg breadcrumb-bg-contact py-5">
-      <div class="container text-center py-lg-5 py-md-3">
-        <h1 class="text-white fw-bold">{{ $post->titulo }}</h1>
+  <!-- Article Header Breadcrumb -->
+  <section style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%); color: #ffffff; padding: 4.5rem 0; position: relative; border-bottom: 3px solid var(--primary);">
+    <div class="container-custom" style="max-width: 900px; text-align: center;">
+      @if($post->categoria)
+        <div class="section-badge" style="background: rgba(230,70,30,0.2); border-color: rgba(230,70,30,0.4); margin-bottom: 1rem;">
+          <i class="ti ti-tag"></i>
+          <span>{{ $post->categoria->nome }}</span>
+        </div>
+      @endif
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: #ffffff; line-height: 1.25; margin-bottom: 1rem;">
+        {{ $post->titulo }}
+      </h1>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; color: var(--slate-300); font-size: 0.9375rem;">
+        <span style="display: flex; align-items: center; gap: 0.35rem;">
+          <i class="ti ti-calendar" style="color: var(--primary);"></i>
+          {{ $post->created_at ? $post->created_at->translatedFormat('d \d\e F \d\e Y') : '' }}
+        </span>
+        <span style="display: flex; align-items: center; gap: 0.35rem;">
+          <i class="ti ti-user" style="color: var(--primary);"></i>
+          MetalMar
+        </span>
       </div>
     </div>
   </section>
 
-  <!-- Post -->
-  <div class="w3l-news" id="news">
-    <section id="grids5-block" class="bg-branco py-5">
-      <div class="container py-lg-4 py-sm-3">
-        <div class="row justify-content-between">
-          <div class="col-lg-8 bg-branco rounded box-shadow-1 p-4">
-            @if($post->img)
-              <img src='{{ url("storage/{$post->img}") }}' class="img-fluid d-block w-100 rounded text-center" alt="{{$post->titulo}}">
-            @endif
-            <div class="row my-3 justify-content-between">
-              <div class="col-md-6">
-                <p class="fw-bold text-amarelo"><span class="fa fa-clock-o mr-2"></span>{{strftime('%d %b %Y', strtotime($post->created_at))}}</p>
-              </div>
-              <div class="col-md-6 text-md-right">
-                <p class="fw-bold text-azul-2"><span class="fa fa-tags mr-2"></span>{{ $post->categoria->nome }}</p>
-              </div>
+  <!-- Article Body & Sidebar -->
+  <section style="padding: 5rem 0; background-color: var(--slate-50);">
+    <div class="container-custom">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: flex-start;">
+        
+        <!-- Main Article Container -->
+        <article style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+          @if($post->img)
+            <div style="border-radius: 0.875rem; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1);">
+              <img src="{{ url('storage/' . $post->img) }}" alt="{{ $post->titulo }}" style="width: 100%; height: auto; display: block;">
             </div>
-            <div class="sobre-p text-justify mt-3">
-              {!! $post->texto !!}
+          @endif
+
+          <div style="color: var(--slate-700); font-size: 1.05rem; line-height: 1.85; margin-bottom: 2.5rem;">
+            {!! $post->texto !!}
+          </div>
+
+          @if(!empty($post->iframe))
+            <div style="border-radius: 0.875rem; overflow: hidden; margin: 2rem 0; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1);">
+              {!! $post->iframe !!}
             </div>
-            <div class="mt-4">
-              {!!$post->iframe!!}
-            </div>
-            <div class="d-grid justify-content-center my-4">
-              <h4 class="fw-bold py-2">{{ tr('Compartilhe') }}</h4>
-              <div class="a2a_kit a2a_kit_size_32 a2a_default_style d-flex justify-content-lg-start justify-content-center">
-                <a class="a2a_button_facebook"></a>
-                <a class="a2a_button_twitter"></a>
-                <a class="a2a_button_whatsapp"></a>
-                <a class="a2a_button_telegram"></a>
-              </div>
-              <script>
-                var a2a_config = a2a_config || {};
-                a2a_config.locale = "pt-BR";
-              </script>
-              <script async src="https://static.addtoany.com/menu/page.js"></script>
+          @endif
+
+          <!-- Social Share Bar -->
+          <div style="padding-top: 1.5rem; border-top: 1px solid var(--slate-200); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <span style="font-weight: 700; color: var(--navy-950); font-size: 0.9375rem;">
+              {{ tr('Compartilhar este artigo:') }}
+            </span>
+            <div style="display: flex; gap: 0.5rem;">
+              <a href="https://wa.me/?text={{ urlencode($post->titulo . ' - ' . url('blog/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #25d366; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="WhatsApp">
+                <i class="ti ti-brand-whatsapp"></i>
+              </a>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url('blog/' . $post->urltitulo)) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="Facebook">
+                <i class="ti ti-brand-facebook"></i>
+              </a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url('blog/' . $post->urltitulo)) }}&title={{ urlencode($post->titulo) }}" target="_blank" style="width: 2.25rem; height: 2.25rem; border-radius: 9999px; background: #0a66c2; color: #ffffff; display: flex; align-items: center; justify-content: center;" title="LinkedIn">
+                <i class="ti ti-brand-linkedin"></i>
+              </a>
             </div>
           </div>
-          <div class="col-lg-4 p-4">
-            <ul class="unlisted w3l-contact pb-4">
-              <li class="border-bottom pb-3">
-                <h3 class="fw-bold pb-2">{{ tr('Pesquisar') }}</h3>
-                <form method="GET" action="{{ route('pesquisar') }}" class="contact-form d-flex">
-                  <input type="text" class="form-control" name="pesquisar" id="pesquisar" placeholder="{{ tr('Digite aqui') }}" value="{{ Request('pesquisar')}}"><br>
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-search fs-4" aria-hidden="true"></i></button>
-                </form>
-              </li>
-            </ul>
-            <h3 class="fw-bold pb-2">{{ tr('Posts Recentes') }}</h3>
-            <ul class="unlisted">
-              @foreach($blog as $blogs)
-                @if($blogs->id != $post->id)
-                  <li class="media border-bottom py-3">
-                    <a href='{{ url("blog/{$blogs->urltitulo}") }}' class="d-flex align-items-center">
-                      @if($blogs->img)
-                        <img src='{{ url("storage/{$blogs->img}") }}' class="img-fluid rounded mr-3" alt='{{ $blogs->titulo }}'>
-                      @endif
-                      <div class="d-block">
-                        <h6 class="text-primary fw-bold pb-2">{{ $blogs->titulo }}</h6>
-                        <h6 class="text-amarelo fw-bold"><span class="fa fa-clock-o mr-2"></span>{{strftime('%d %b %Y', strtotime($blogs->created_at))}}</h6>
-                      </div>
-                    </a>
-                  </li>
+        </article>
+
+        <!-- Sidebar -->
+        <aside style="display: flex; flex-direction: column; gap: 2rem;">
+          
+          <!-- Search Box -->
+          <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 1.75rem;">
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1rem;">
+              {{ tr('Pesquisar no Blog') }}
+            </h4>
+            <form method="GET" action="{{ route('pesquisar') }}" style="display: flex; gap: 0.5rem;">
+              <input type="text" name="pesquisar" placeholder="{{ tr('Digite palavras-chave...') }}" value="{{ request('pesquisar') }}" class="form-input-custom" style="padding: 0.65rem 0.85rem; font-size: 0.875rem;">
+              <button type="submit" class="btn-primary" style="padding: 0.65rem 1rem;">
+                <i class="ti ti-search"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Recent Articles -->
+          <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 1.75rem;">
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: var(--navy-950); margin-bottom: 1.25rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--slate-100);">
+              {{ tr('Artigos Recentes') }}
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+              @foreach($blog as $item)
+                @if($item->id != $post->id)
+                  <a href="{{ url('blog/' . $item->urltitulo) }}" style="display: flex; gap: 1rem; align-items: center; text-decoration: none;" group>
+                    @if($item->img)
+                      <img src="{{ url('storage/' . $item->img) }}" alt="{{ $item->titulo }}" style="width: 4.5rem; height: 4.5rem; border-radius: 0.625rem; object-fit: cover; flex-shrink: 0;">
+                    @endif
+                    <div>
+                      <h5 style="font-size: 0.875rem; font-weight: 700; color: var(--navy-950); line-height: 1.35; margin-bottom: 0.25rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        {{ $item->titulo }}
+                      </h5>
+                      <span style="font-size: 0.75rem; color: var(--slate-500); display: flex; align-items: center; gap: 0.25rem;">
+                        <i class="ti ti-calendar" style="color: var(--primary);"></i>
+                        {{ $item->created_at ? $item->created_at->translatedFormat('d M Y') : '' }}
+                      </span>
+                    </div>
+                  </a>
                 @endif
               @endforeach
-            </ul>
+            </div>
           </div>
-        </div>
+
+          <!-- Quick Contact CTA -->
+          <div style="background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 100%); border-radius: 1.25rem; padding: 2rem; color: #ffffff; border: 1px solid rgba(255,255,255,0.1); text-align: center;">
+            <i class="ti ti-phone-outgoing" style="font-size: 2.25rem; color: var(--primary); margin-bottom: 0.75rem; display: inline-block;"></i>
+            <h4 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">
+              {{ tr('Solicite um Orçamento') }}
+            </h4>
+            <p style="color: var(--slate-300); font-size: 0.875rem; margin-bottom: 1.25rem; line-height: 1.5;">
+              {{ tr('Entre em contato com nossos especialistas e obtenha consultoria técnica ágil.') }}
+            </p>
+            <a href="{{ url('contato-metalmar-manutencao-industrial-e-naval-em-belem-do-para') }}" class="btn-primary" style="width: 100%;">
+              <span>{{ tr('Falar com Especialista') }}</span>
+              <i class="ti ti-arrow-right"></i>
+            </a>
+          </div>
+
+        </aside>
+
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
 @endsection
