@@ -48,10 +48,10 @@
   <!-- Article Body & Sidebar -->
   <section style="padding: 5rem 0; background-color: var(--slate-50);">
     <div class="container-custom">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: flex-start;">
+      <div class="layout-content-sidebar">
         
         <!-- Main Article Container -->
-        <article style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <article style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); min-width: 0;">
           @if($post->img)
             <div style="border-radius: 0.875rem; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 10px 25px -5px rgba(15,23,42,0.1);">
               <img src="{{ url('storage/' . $post->img) }}" alt="{{ $post->titulo }}" style="width: 100%; height: auto; display: block;">
@@ -88,7 +88,7 @@
         </article>
 
         <!-- Sidebar -->
-        <aside style="display: flex; flex-direction: column; gap: 2rem;">
+        <aside style="position: sticky; top: 6rem; display: flex; flex-direction: column; gap: 2rem;">
           
           <!-- Search Box -->
           <div style="background: #ffffff; border-radius: 1.25rem; border: 1px solid var(--slate-200); padding: 1.75rem;">

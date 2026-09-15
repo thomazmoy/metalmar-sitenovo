@@ -665,3 +665,19 @@ textarea.form-input-custom {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
+
+/* Layout responsivo com Article (maior) e Aside (sidebar) */
+.layout-content-sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+
+@media (min-width: 992px) {
+    .layout-content-sidebar {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 3.5rem;
+    }
+}
+
