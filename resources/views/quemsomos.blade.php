@@ -44,7 +44,7 @@
           
           <div>
             @if($quemsomos->imgtres)
-              <div style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15); border: 1px solid var(--slate-200);">
+              <div style="overflow: hidden;">
                 <img src="{{ url('storage/' . $quemsomos->imgtres) }}" alt="{{ $quemsomos->titulodois }}" style="width: 100%; height: auto; display: block;">
               </div>
             @endif
@@ -136,7 +136,7 @@
                 </div>
               </div>
             @elseif($quemsomos->imgdois)
-              <div style="border-radius: 1.25rem; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.15); border: 1px solid var(--slate-200);">
+              <div style="overflow: hidden;">
                 <img src="{{ url('storage/' . $quemsomos->imgdois) }}" alt="{{ $quemsomos->titulotres }}" style="width: 100%; height: auto; display: block;">
               </div>
             @endif
